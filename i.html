@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결과 모아보기</title>
+    <style>
+        /* 여기에 필요한 스타일 추가해도 돼! */
+        canvas {
+            border: 1px solid #000;
+            margin: 5px;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <!-- b.html에서 가져온 캔버스 -->
+        <canvas id="canvas1"></canvas>
+        <!-- c.html에서 가져온 캔버스 -->
+        <canvas id="canvas2"></canvas>
+        <!-- d.html에서 가져온 캔버스 -->
+        <canvas id="canvas3"></canvas>
+    </div>
+    <div>
+        <!-- e.html에서 가져온 캔버스 -->
+        <canvas id="canvas4"></canvas>
+        <!-- f.html에서 가져온 캔버스 -->
+        <canvas id="canvas5"></canvas>
+        <!-- g.html에서 가져온 캔버스 -->
+        <canvas id="canvas6"></canvas>
+    </div>
+    
+    <script>
+        function loadHTML(url, targetCanvasId) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const targetCanvas = doc.getElementById(`canvasFrom${targetCanvasId}`);
+                    document.getElementById(targetCanvasId).replaceWith(targetCanvas);
+                });
+        }
+
+        // b.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('https://saramchoi.github.io/32-15/b.html', 'canvas1');
+
+        // c.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('https://saramchoi.github.io/32-15/c.html', 'canvas2');
+
+        // d.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('https://saramchoi.github.io/32-15/d.html', 'canvas3');
+
+        // e.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('https://saramchoi.github.io/32-15/e.html', 'canvas4');
+
+        // f.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('https://saramchoi.github.io/32-15/f.html', 'canvas5');
+
+        // g.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('https://saramchoi.github.io/32-15/g.html', 'canvas6');
+
+    </script>
+</body>
+</html>
