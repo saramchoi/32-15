@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결과 모아보기</title>
+    <style>
+        /* 여기에 필요한 스타일 추가해도 돼! */
+        canvas {
+            border: 1px solid #000;
+            margin: 5px;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <!-- b.html에서 가져온 캔버스 -->
+        <canvas id="canvas1"></canvas>
+        <!-- c.html에서 가져온 캔버스 -->
+        <canvas id="canvas2"></canvas>
+        <!-- d.html에서 가져온 캔버스 -->
+        <canvas id="canvas3"></canvas>
+    </div>
+    <div>
+        <!-- b.html에서 가져온 캔버스 -->
+        <canvas id="canvas4"></canvas>
+        <!-- c.html에서 가져온 캔버스 -->
+        <canvas id="canvas5"></canvas>
+        <!-- d.html에서 가져온 캔버스 -->
+        <canvas id="canvas6"></canvas>
+    </div>
+    <script>
+        function loadHTML(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.open('GET', url, true);
+            xhr.send();
+        }
+
+        // b.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('b.html', function(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const bCanvas = doc.getElementById('canvasFromB');
+            document.getElementById('canvas1').replaceWith(bCanvas);
+        });
+
+        // c.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('c.html', function(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const cCanvas = doc.getElementById('canvasFromC');
+            document.getElementById('canvas2').replaceWith(cCanvas);
+        });
+
+        // d.html에서 가져온 캔버스를 추가하는 부분
+        loadHTML('d.html', function(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const dCanvas = doc.getElementById('canvasFromD');
+            document.getElementById('canvas3').replaceWith(dCanvas);
+        });
+    </script>
+</body>
+</html>
