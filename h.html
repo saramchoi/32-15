@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결과 모아보기</title>
+    <style>
+        html { font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.8em; }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .group-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .canvas-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 300px;
+            margin: 5px;
+        }
+
+        canvas {
+            border: 1px solid #000;
+            width: 100%;
+            height: 300px;
+        }
+
+        .input-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-overlay input {
+            width: 80%;
+            padding: 5px;
+        }
+
+        .result-text {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border: 0;
+            border-radius: 30px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            color: blue;
+            background-color: black;
+        }
+
+        .canvas-description {
+            display: none; /* 처음에는 안 보이도록 설정 */
+        }
+    </style>
+</head>
+<body>
+    <div class="group-wrapper">
+        <div class="canvas-wrapper">
+            <div class="group-wrapper">
+        <div class="canvas-wrapper">
+            <div class="canvas-container">
+                <canvas id="canvas1"></canvas>
+                <div class="input-overlay">
+                    <input type="text" placeholder=" ">
+                </div>
+                <div class="result-text" id="resultText1"></div>
+                <p class="canvas-description">내가 보는 나</p>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="canvas2"></canvas>
+                <div class="input-overlay">
+                    <input type="text" placeholder=" ">
+                </div>
+                <div class="result-text" id="resultText2"></div>
+                <p class="canvas-description">타인이 보는 나</p>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="canvas3"></canvas>
+                <div class="input-overlay">
+                    <input type="text" placeholder=" ">
+                </div>
+                <div class="result-text" id="resultText3"></div>
+                <p class="canvas-description">나의 인생관</p>
+            </div>
+        </div>
+
+        <div class="canvas-wrapper">
+            <div class="canvas-container">
+                <canvas id="canvas4"></canvas>
+                <div class="input-overlay">
+                    <input type="text" placeholder=" ">
+                </div>
+                <div class="result-text" id="resultText4"></div>
+                <p class="canvas-description">나의 잠재의식</p>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="canvas5"></canvas>
+                <div class="input-overlay">
+                    <input type="text" placeholder=" ">
+                </div>
+                <div class="result-text" id="resultText5"></div>
+                <p class="canvas-description">나의 가족관</p>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="canvas6"></canvas>
+                <div class="input-overlay">
+                    <input type="text" placeholder=" ">
+                </div>
+                <div class="result-text" id="resultText6"></div>
+                <p class="canvas-description">내가 생각하는 사랑</p>
+            </div>
+        </div>
+
+        </div>
+
+        <button onclick="showResults()">결과 보기</button>
+    </div>
+
+    <script>
+        async function loadHTML(url, targetCanvasId) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${url}`);
+                }
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const targetCanvas = doc.getElementById(targetCanvasId);
+
+                document.getElementById(targetCanvasId).replaceWith(targetCanvas);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function showResults() {
+            const descriptions = document.querySelectorAll('.canvas-description');
+            descriptions.forEach(description => {
+                description.style.display = 'block'; // '결과 보기' 버튼 클릭 시에만 보이도록 설정
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadHTML('https://saramchoi.github.io/32-15/b.html', 'canvas1');
+            loadHTML('https://saramchoi.github.io/32-15/c.html', 'canvas2');
+            loadHTML('https://saramchoi.github.io/32-15/d.html', 'canvas3');
+            loadHTML('https://saramchoi.github.io/32-15/e.html', 'canvas4');
+            loadHTML('https://saramchoi.github.io/32-15/f.html', 'canvas5');
+            loadHTML('https://saramchoi.github.io/32-15/g.html', 'canvas6');
+        });
+    </script>
+</body>
+</html>
